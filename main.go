@@ -11,13 +11,17 @@ import (
 func main() {
 	var err error = nil
 
-	switch os.Args[1] {
-	case "publish":
-		err = cmd.Publish()
-	case "trigger":
-		err = cmd.Trigger()
-	default:
-		err = errors.New("invalid command")
+	if len(os.Args) < 2 {
+		err = errors.New("expected command")
+	} else {
+		switch os.Args[1] {
+		case "publish":
+			err = cmd.Publish()
+		case "trigger":
+			err = cmd.Trigger()
+		default:
+			err = errors.New("invalid command")
+		}
 	}
 
 	if err != nil {
